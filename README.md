@@ -1,9 +1,31 @@
 # TraffiSense: AI Traffic Violation Detection & E-Challan System
 
+<div align="center">
+
+  [![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-TraffiSense_Cloud-00E5FF?style=for-the-badge&logo=vercel&logoColor=black)](https://traffisense-dashboard.vercel.app)
+  [![3D Simulator](https://img.shields.io/badge/3D_Simulator-PRAVAH_Digital_Twin-FF6D00?style=for-the-badge&logo=three.js&logoColor=white)](https://pravah-3d-simulator.vercel.app)
+  [![Dashboard Repo](https://img.shields.io/badge/Frontend_Repo-traffisense--dashboard-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://github.com/temp-pie1207/traffisense-dashboard)
+  [![3D Sim Repo](https://img.shields.io/badge/Simulator_Repo-pravah--3d--simulator-black?style=for-the-badge&logo=three.js&logoColor=white)](https://github.com/temp-pie1207/pravah-3d-simulator)
+  [![YOLO11s](https://img.shields.io/badge/Model-YOLO11s_%2B_IDD-blue?style=for-the-badge&logo=pytorch&logoColor=white)](https://github.com/temp-pie1207/traffic-violation-system)
+
+  <p align="center">
+    <strong>A precision-first computer vision research and engineering platform for Indian roads. Detects helmet, triple-riding, speed, and red-light violations with OCR e-challan generation and PRAVAH adaptive signal control digital twin.</strong>
+  </p>
+
+  <p align="center">
+    <a href="https://traffisense-dashboard.vercel.app"><strong>⚡ Open Live Dashboard (Vercel) ↗</strong></a> •
+    <a href="https://pravah-3d-simulator.vercel.app"><strong>🚗 Launch 3D Digital Twin Simulator ↗</strong></a> •
+    <a href="https://naman-portfolio-theta.vercel.app">Portfolio</a>
+  </p>
+
+</div>
+
+---
+
 TraffiSense is a computer-vision research project for Indian roads. It analyses traffic video, detects
 **helmet, triple-riding and red-light violations**, tracks every vehicle, reads number plates, and produces
 e-challans with photo evidence and plain-language reasons. It also includes **PRAVAH**, an adaptive
-traffic-signal controller tested in a Unity simulation of an Indian junction.
+traffic-signal controller tested in a WebGL / Unity simulation of an Indian junction.
 
 The design is **precision first**: when the system is not sure, a case goes to human review instead of becoming
 a challan. Every finding is labelled **CHALLAN**, **REVIEW** or **EXEMPT** (ambulance, police, fire engine).
@@ -136,7 +158,10 @@ triple-riding model (a Kaggle set with no stated licence) are for study and rese
 
 ---
 
-## Author
+## Authors & Maintainers
 
-**Sachin Nair**, B.Tech Computer Science, Pillai College of Engineering, Panvel
-[LinkedIn](https://www.linkedin.com/in/n-sachin-nair) · [GitHub](https://github.com/Sachin196267)
+- **Research & Core Models**: **Sachin Nair**, B.Tech Computer Science, Pillai College of Engineering, Panvel · [LinkedIn](https://www.linkedin.com/in/n-sachin-nair) · [GitHub](https://github.com/Sachin196267)
+- **Cloud Architecture & Web Platforms**: **Naman Kashyap**, B.Tech AIML · [GitHub](https://github.com/temp-pie1207) · [Portfolio](https://naman-portfolio-theta.vercel.app) · [LeetCode](https://leetcode.com/u/Naman_1207/)
+  - Live Dashboard: [https://traffisense-dashboard.vercel.app](https://traffisense-dashboard.vercel.app)
+  - 3D Digital Twin: [https://pravah-3d-simulator.vercel.app](https://pravah-3d-simulator.vercel.app)
+  - Repositories: [temp-pie1207/traffisense-dashboard](https://github.com/temp-pie1207/traffisense-dashboard) · [temp-pie1207/pravah-3d-simulator](https://github.com/temp-pie1207/pravah-3d-simulator)
