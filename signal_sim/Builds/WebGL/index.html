@@ -17,6 +17,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#11161F;font-family:-a
 <p>Loading the simulator (about 80 MB the first time)...</p><p id="err"></p></div>
 <script>
 var s=document.createElement('script');s.src='Build/WebGL.loader.js';
+s.onerror=function(e){document.getElementById('err').innerHTML='WebGL build files not found.<br><br><a href="/viewer_3d.html" style="color: #F2A33A; text-decoration: underline;">Launch 3D Traffic Simulator</a>';};
 s.onload=function(){createUnityInstance(document.getElementById('c'),{
  dataUrl:'Build/WebGL.data',frameworkUrl:'Build/WebGL.framework.js',codeUrl:'Build/WebGL.wasm',
  streamingAssetsUrl:'StreamingAssets',companyName:'TraffiSense',productName:'signal_sim',productVersion:'1.0'

@@ -158,7 +158,9 @@ def run_analysis(aid: str):
         import os
         import torch
         base_env = {**os.environ, "PYTHONPATH": str(Path(__file__).parent / "ml/hook")}
-        if torch.backends.mps.is_available():
+        if torch.cuda.is_available():
+            base_env["TVP_DEVICE"] = "cuda:0"
+        elif torch.backends.mps.is_available():
             base_env["TVP_DEVICE"] = "mps"
         opts["_env"] = base_env
         users = [k for k in steps if k in ("helmet", "triple")] + (["plates"] if plate.READY and opts.get("plates", True) else [])

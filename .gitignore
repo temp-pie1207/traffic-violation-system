@@ -62,3 +62,4 @@ helmet_training/reports/**/*.png
 
 # Unity copy used by the web platform for simulations
 app/data/signal_sim_runner/
+app/data/

@@ -11,6 +11,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import challan_pdf
@@ -673,10 +674,13 @@ def stats(u=Depends(user)):
                 "confidence_hist": [sum(1 for x in conf if i / 10 <= x < (i + 1) / 10 or (i == 9 and x == 1)) for i in range(10)]}
 
 
-# ---------------- 3-D simulator (Unity WebGL build, separate from the React app) ----------------
+# ---------------- 3-D simulator (Unity WebGL build or Three.js fallback) ----------------
 SIM3D = config.ROOT / "signal_sim" / "Builds" / "WebGL"
 SIM3D_TYPES = {".wasm": "application/wasm", ".js": "application/javascript", ".data": "application/octet-stream",
                ".html": "text/html", ".css": "text/css", ".png": "image/png", ".ico": "image/x-icon"}
+
+if (config.ROOT / "static").exists():
+    app.mount("/static", StaticFiles(directory=str(config.ROOT / "static")), name="static")
 
 
 @app.get("/sim3d")
@@ -687,14 +691,24 @@ def sim3d_root():
 
 @app.get("/sim3d/{path:path}")
 def sim3d(path: str):
+    loader = SIM3D / "Build" / "WebGL.loader.js"
+    if loader.exists():
+        p = (SIM3D / (path or "index.html")).resolve()
+        if str(p).startswith(str(SIM3D.resolve())) and p.is_file():
+            return FileResponse(p, media_type=SIM3D_TYPES.get(p.suffix.lower()))
+    # Three.js 3D Intersection Simulation fallback
+    viewer = config.ROOT / "viewer_3d.html"
+    if viewer.exists() and (not path or path == "index.html"):
+        return FileResponse(viewer, media_type="text/html")
     p = (SIM3D / (path or "index.html")).resolve()
     if str(p).startswith(str(SIM3D.resolve())) and p.is_file():
         return FileResponse(p, media_type=SIM3D_TYPES.get(p.suffix.lower()))
-    if not (SIM3D / "index.html").exists():
-        from fastapi.responses import HTMLResponse
-        return HTMLResponse("<h2>3-D simulator not built yet</h2><p>Build it with Unity: "
-                            "-executeMethod SignalSim.WebBuild.Run (needs WebGL Build Support).</p>", 503)
     return JSONResponse({"detail": "not found"}, 404)
+
+
+@app.get("/viewer_3d.html")
+def viewer_3d():
+    return FileResponse(config.ROOT / "viewer_3d.html", media_type="text/html")
 
 
 # ---------------- web app ----------------
