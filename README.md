@@ -80,9 +80,44 @@ for every model, its training data and its held-out score.
 ├── modules/                 # Shared pipeline modules (tracking, severity, rule-based XAI, PDF slips)
 ├── webapp/                  # Earlier web interface (FastAPI + Jinja)
 ├── config/                  # Fines, severity and temporal rules (Motor Vehicles Act sections)
+├── videos_final/            # 8 curated benchmark demo clips (playable & downloadable)
 ├── models/, runs/           # Trained weights (see MODELS.md)
 └── MODELS.md                # Model card
 ```
+
+---
+
+## 🎬 Demo Videos & Benchmark Clips
+
+This repository includes **8 real-world Indian traffic video clips** located in [`videos_final/`](videos_final/). Anyone can watch them directly in GitHub's media player, download them for local inference, or clone them directly with the repository.
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Red-Light Violation Detection</b></td>
+      <td align="center"><b>CCTV Triple-Riding Detection</b></td>
+      <td align="center"><b>AI Signal & Stop-Line Tracking</b></td>
+    </tr>
+    <tr>
+      <td><img src="videos_final/preview_redlight.gif" width="280" alt="Red Light Jumping Preview"/></td>
+      <td><img src="videos_final/preview_triple_riding.gif" width="280" alt="Triple Riding CCTV Preview"/></td>
+      <td><img src="videos_final/preview_ai_detection.gif" width="280" alt="AI Signal Tracking Preview"/></td>
+    </tr>
+  </table>
+</div>
+
+### 📥 Available Benchmark Clips & Download Links
+
+| Video Clip | Tested Violations & Context | Duration | Size | In-Browser Stream & Direct Download |
+|:---|:---|:---:|:---:|:---:|
+| **`01_intersection_signals_busy_1080p.mp4`** | Complete junction pipeline: signals, red light, helmet, triple riding, lanes | 39s | 22 MB | [▶️ View in GitHub](videos_final/01_intersection_signals_busy_1080p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/01_intersection_signals_busy_1080p.mp4) |
+| **`02_bengaluru_junction_signal_1080p.mp4`** | Helmet, triple riding, license plates, dashcam signal perspective | 2 min | 37 MB | [▶️ View in GitHub](videos_final/02_bengaluru_junction_signal_1080p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/02_bengaluru_junction_signal_1080p.mp4) |
+| **`03_pune_talawade_chowk_1080p.mp4`** | Elevated intersection, signal tracking, lane flow (Talawade Chowk) | 56s | 29 MB | [▶️ View in GitHub](videos_final/03_pune_talawade_chowk_1080p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/03_pune_talawade_chowk_1080p.mp4) |
+| **`04_red_light_jumpers_1080p.mp4`** | Clear red light violation, stop line breach by cars and auto-rickshaws | 44s | 21 MB | [▶️ View in GitHub](videos_final/04_red_light_jumpers_1080p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/04_red_light_jumpers_1080p.mp4) |
+| **`05_tirupati_cctv_junction_480p.mp4`** | High-density urban roundabout CCTV, helmet & triple riding | 38s | 3.4 MB | [▶️ View in GitHub](videos_final/05_tirupati_cctv_junction_480p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/05_tirupati_cctv_junction_480p.mp4) |
+| **`06_tirupati_cctv_triple_riding_480p.mp4`** | Close CCTV perspective on motorcycle triple riders | 67s | 3.1 MB | [▶️ View in GitHub](videos_final/06_tirupati_cctv_triple_riding_480p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/06_tirupati_cctv_triple_riding_480p.mp4) |
+| **`07_tirupati_cctv_helmet_triple_480p.mp4`** | Top-down CCTV monitoring helmet non-compliance and triple riders | 92s | 5.0 MB | [▶️ View in GitHub](videos_final/07_tirupati_cctv_helmet_triple_480p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/07_tirupati_cctv_helmet_triple_480p.mp4) |
+| **`08_tirupati_cctv_echallan_examples_480p.mp4`** | Multi-camera operational police CCTV violation compilation | 3 min | 31 MB | [▶️ View in GitHub](videos_final/08_tirupati_cctv_echallan_examples_480p.mp4) • [⬇️ Download](https://raw.githubusercontent.com/temp-pie1207/traffic-violation-system/main/videos_final/08_tirupati_cctv_echallan_examples_480p.mp4) |
 
 ---
 
@@ -94,13 +129,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Videos are not included in the repository; use your own traffic clip.
+All 8 benchmark clips are included in [`videos_final/`](videos_final/). You can test the pipeline immediately:
 
 **Combined e-challan tool**
 
 ```bash
-python echallan/run.py <video.mp4> [--camera red_light/cameras/<cam>.json] [--max-sec 120]
-# -> echallan/runs/<video>/challans.json, challans.md, evidence/*.jpg
+# Test red light jumper clip
+python echallan/run.py videos_final/04_red_light_jumpers_1080p.mp4
+
+# Test helmet & triple riding detection on police CCTV footage
+python echallan/run.py videos_final/06_tirupati_cctv_triple_riding_480p.mp4
+# -> Outputs saved to: echallan/runs/<video>/challans.json, challans.md, evidence/*.jpg
 ```
 
 **Web platform** (FastAPI + React)

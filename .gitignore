@@ -16,6 +16,8 @@ outputs/
 datasets/
 runs/
 videos/
+!videos_final/*.mp4
+!videos_final/*.gif
 
 # Roboflow raw dataset folders
 Bike Helmet Detection*
